@@ -1,0 +1,30 @@
+<html>
+<title>
+    Events
+</title>
+<body onload="load()">
+
+<div id="files"></div>
+
+<script>
+
+
+    function load() {
+        console.log("loading..")
+        var ws = new WebSocket('ws://localhost:8080/ws/files');
+        var files = [];
+        ws.onmessage = function (me) {
+            var fe = JSON.parse(me.data);
+            files.push(fe);
+            console.log(JSON.stringify(fe));
+            var htmlDivElement = document.createElement('div');
+            htmlDivElement.innerText = fe.message;
+            document.getElementById('files').appendChild(htmlDivElement);
+        };
+
+    }
+
+
+</script>
+</body>
+</html>
